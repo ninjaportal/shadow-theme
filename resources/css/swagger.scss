@@ -1,0 +1,155 @@
+.swagger-ui {
+    .link, .link * {
+        @apply text-primary hover:text-primary/80 transition-colors duration-200 ease-in-out  #{!important};
+    }
+
+    .info {
+        .title {
+            @apply dark:text-white;
+        }
+        .opblock-summary-pathbase-url {
+            @apply dark:text-gray-300;
+        }
+        .description p {
+            @apply dark:text-gray-300 #{!important};
+        }
+    }
+
+    .scheme-container {
+        @apply dark:bg-gray-800;
+        .schemes {
+            .schemes-title {
+                @apply dark:text-white mb-2;
+            }
+            select {
+                @apply dark:bg-gray-700 dark:text-gray-300 dark:border-gray-700;
+                @apply focus:ring-primary focus:border-primary;
+            }
+        }
+    }
+
+    .opblock-tag {
+        @apply dark:bg-gray-800 dark:text-white;
+        .markdown p {
+            @apply dark:text-gray-300;
+        }
+    }
+
+    .opblock {
+        .opblock-summary-path {
+            @apply dark:bg-gray-800 dark:text-white;
+        }
+
+        .opblock-section-header {
+            @apply dark:bg-gray-800;
+            * {
+                @apply dark:text-white;
+            }
+        }
+
+    }
+
+    button svg {
+        @apply dark:fill-white;
+    }
+
+    .parameters-col_name {
+        @apply dark:text-gray-300;
+        .parameter__name {
+            @apply dark:text-gray-300;
+        }
+        .parameter__type {
+            @apply dark:text-gray-300;
+            .prop-format {
+                @apply dark:text-gray-400;
+            }
+        }
+    }
+    .parameters-col_description {
+        @apply dark:text-gray-300;
+    }
+
+    .response-col_status {
+        @apply dark:text-gray-300;
+    }
+    .response-col_description {
+        @apply dark:text-gray-300;
+        .response-col_description__inner {
+            @apply dark:text-gray-300 #{!important};
+        }
+    }
+
+    .tab {
+        .tabitem {
+            @apply dark:text-white;
+        }
+    }
+
+    input {
+        @apply dark:bg-gray-700 dark:text-gray-300 dark:border-gray-700 #{!important};
+        @apply focus:ring-primary focus:border-primary #{!important};
+    }
+    .models {
+        @apply dark:bg-gray-800;
+        .models-control span {
+            @apply dark:text-gray-300;
+        }
+    }
+    .model-box {
+        .model {
+            @apply dark:text-gray-300;
+            .model-title {
+                @apply dark:text-gray-300;
+            }
+            .model-contents {
+                @apply dark:text-gray-300;
+            }
+        }
+    }
+
+    .modal-ux {
+        @apply dark:bg-gray-800 border-gray-700 #{!important};
+        .modal-dialog-ux {
+            @apply dark:bg-gray-800 border-gray-700;
+        }
+        .modal-ux-header {
+            @apply dark:border-gray-700;
+            h3 {
+                @apply dark:text-white;
+            }
+        }
+        .modal-ux-content * {
+            @apply dark:text-gray-300 #{!important};
+        }
+    }
+
+    .checkbox {
+        @apply dark:text-gray-300 w-full h-full;
+        .checkbox__input {
+            @apply dark:bg-gray-700 dark:border-gray-700;
+            @apply focus:ring-primary focus:border-primary;
+        }
+        .checkbox__label {
+            @apply dark:text-gray-300;
+        }
+    }
+
+    .errors-wrapper {
+        @apply dark:bg-red-500 dark:text-white;
+        .errors-title {
+            @apply dark:text-white;
+        }
+        .error {
+            @apply dark:text-white;
+        }
+    }
+
+    select.content-type {
+        @apply dark:bg-gray-700 dark:text-gray-300 dark:border-gray-700;
+        @apply focus:ring-primary focus:border-primary;
+    }
+    .loading-container {
+        @apply dark:text-gray-300;
+    }
+}
+
