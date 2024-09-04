@@ -4,16 +4,14 @@ namespace NinjaPortal\Shadow\Rules;
 
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Validator;
-use NinjaPortal\Portal\Services\ApiProductService;
 
 class ReCaptchaV2Rule implements Rule
 {
     public function passes($attribute, $value)
     {
         $is_enabled = config('shadow.recaptcha.enabled');
-
+        dd($is_enabled);
         if (!$is_enabled) {
             return true;
         }
