@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="{{ asset("theme/swagger/swagger-ui.css") }}" />
-<script src="{{ asset("theme/swagger/swagger-ui.js") }}"></script>
+<link rel="stylesheet" href="{{ asset("vendor/shadow/swagger/swagger-ui.css") }}" />
+<script src="{{ asset("vendor/shadow/swagger/swagger-ui.js") }}"></script>
 <script>
         const swagger_file = '{{ $swaggerFile }}';
 

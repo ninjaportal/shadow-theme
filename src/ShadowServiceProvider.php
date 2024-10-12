@@ -37,8 +37,8 @@ class ShadowServiceProvider extends PackageServiceProvider
     {
         // register singleton
         $this->publishes([
-            __DIR__ . '/../assets/' => public_path(),
-            __DIR__ . '/../public/build/' => public_path('vendor/shadow'),
+            __DIR__ . '/../assets/' => public_path(''),
+            __DIR__ . '/../public/' => public_path('vendor/shadow/'),
         ], 'shadow-assets');
 
 
