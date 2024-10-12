@@ -14,8 +14,8 @@
     </title>
     <link rel="icon" href="{{ asset("theme/img/logo-dark.png") }}">
     <meta property="og:image" content="{{ asset("theme/img/cover.jpg") }}">
-    @vite("resources/css/app.scss")
-    @vite("resources/js/app.js")
+    @vite("resources/css/app.scss", "vendor/shadow/build")
+    @vite("resources/js/app.js", "vendor/shadow/build")
     @stack('styles')
 
 </head>

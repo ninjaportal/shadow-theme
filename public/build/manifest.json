@@ -1,0 +1,17 @@
+{
+  "node_modules/@sweetalert2/theme-dark/dark.min.css": {
+    "file": "assets/dark-CbHFpNcj.css",
+    "src": "node_modules/@sweetalert2/theme-dark/dark.min.css"
+  },
+  "resources/css/app.scss": {
+    "file": "assets/app-6fkluO4s.css",
+    "src": "resources/css/app.scss",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-Dkr1431N.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
