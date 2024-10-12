@@ -55,6 +55,7 @@
                         @include('layouts.partials.usermenu')
                     @endauth
                 </div>
+
                 <div class="flex lg:hidden">
                     <button
                         @click="open = !open"
@@ -64,7 +65,7 @@
                     </button>
                 </div>
 
-                @if (count(config('app.locales')) > 1)
+                @if (count(config('shadow.locales', [])) > 1)
                     @include("layouts.partials.lang-switcher")
                 @endif
                 <button @click="toggleDarkMode()" class="btn btn-link">
@@ -74,6 +75,8 @@
             </div>
         </nav>
     </div>
+
+    <!-- Mobile menu -->
     <div class="lg:hidden" id="mobile-menu" x-show="open">
         <div class="space-y-1 px-2 pb-3 pt-2">
             @foreach($menu as $item)

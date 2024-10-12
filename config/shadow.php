@@ -17,4 +17,9 @@ return [
      */
     "keys_per_app" => env("KEYS_PER_APP", 2),
 
+
+    /**
+     * Locales ex: ['en', 'ar']
+     */
+    "locales" => []
 ];
