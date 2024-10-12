@@ -17,12 +17,13 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "spatie/laravel-package-tools": "^1.16.3",
         "illuminate/contracts": "^11.0",
         "guzzlehttp/guzzle": "^7.2",
-        "nesbot/carbon": "^2.0",
-        "blade-ui-kit/blade-heroicons": "2.3.0"
+        "nesbot/carbon": "^3.0",
+        "blade-ui-kit/blade-heroicons": "2.3.0",
+        "ninjaportal/portal": "^0.0.1"
     },
     "require-dev": {
 
@@ -37,11 +38,7 @@
             "NinjaPortal\\Shadow\\Tests\\": "tests/"
         }
     },
-    "scripts": {
-        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
-        "test": "vendor/bin/pest",
-        "format": "vendor/bin/pint"
-    },
+    "scripts": {},
     "config": {
         "sort-packages": true,
         "allow-plugins": {
