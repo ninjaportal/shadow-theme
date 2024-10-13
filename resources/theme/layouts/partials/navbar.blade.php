@@ -63,7 +63,7 @@
                     </button>
                 </div>
 
-                @if (count(config('app.locales')) > 1)
+                @if (count(config('shadow.locales',[])) > 1)
                     @include("layouts.partials.lang-switcher")
                 @endif
                 <button @click="toggleDarkMode()" class="btn btn-link">
