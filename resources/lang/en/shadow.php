@@ -51,4 +51,5 @@ return [
     'view' => 'View',
     'warning' => 'Warning',
     'welcome_back' => 'Welcome Back',
+    'home' => 'Home'
 ];
