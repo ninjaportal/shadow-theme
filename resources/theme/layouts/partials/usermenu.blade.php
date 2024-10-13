@@ -28,14 +28,14 @@
         tabindex="-1">
         <!-- Active: "bg-gray-100", Not Active: "" -->
 
-        <a href="{{ route("apps.index") }}" class="user-dropdown-item">@lang("shadow.apps")</a>
-        <a href="{{ route('profile') }}">@lang('shadow.profile')</a>
+        <a href="{{ route("apps.index") }}" class="user-dropdown-item">@lang("shadow::shadow.apps")</a>
+        <a href="{{ route('profile') }}">@lang('shadow::shadow.profile')</a>
         <form method="post" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="hidden"></button>
             <a
                 onclick="event.preventDefault(); this.closest('form').submit();"
-                class="user-dropdown-item cursor-pointer">@lang("shadow.logout")</a>
+                class="user-dropdown-item cursor-pointer">@lang("shadow::shadow.logout")</a>
         </form>
     </div>
 </div>

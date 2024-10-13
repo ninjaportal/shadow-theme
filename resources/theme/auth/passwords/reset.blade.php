@@ -1,20 +1,20 @@
 @extends("layouts.app")
 
-@section("title", __("shadow.reset_password"))
+@section("title", __("shadow::shadow.reset_password"))
 
 @section("content")
     @component('components.title', ["breadcrumbs"=>[
         [
-            'name' => __('shadow.home'),
+            'name' => __('shadow::shadow.home'),
             'url' => route('home')
         ],
         [
-            'name' => __('shadow.reset_password'),
+            'name' => __('shadow::shadow.reset_password'),
             'url' => route('password.request')
         ],
     ]])
         @slot('title')
-            {{ __("shadow.reset_password") }}
+            {{ __("shadow::shadow.reset_password") }}
         @endslot
     @endcomponent
 

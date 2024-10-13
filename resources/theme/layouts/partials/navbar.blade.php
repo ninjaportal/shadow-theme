@@ -1,9 +1,8 @@
 @php
     use NinjaPortal\Portal\Models\Menu;$menu = [];
     if (class_exists(Menu::class)) {
-        $menu = Menu::name('navbar');
-        $menu = $menu ? $menu->content : [];
-        $menu = $menu ?? [];
+        $menu = Menu::slug('navbar');
+        $menu = $menu->items ?? [];
     }
 @endphp
 
@@ -44,10 +43,10 @@
                         <div class="links">
                             <a href="{{ route('login') }}"
                                class="mx-4 hover:text-primary">
-                                @lang("shadow.login")
+                                @lang("shadow::shadow.login")
                             </a>
                             <a href="{{ route('register') }}" class="btn btn-primary">
-                                @lang("shadow.register")
+                                @lang("shadow::shadow.register")
                             </a>
                         </div>
                     @endguest
@@ -55,7 +54,6 @@
                         @include('layouts.partials.usermenu')
                     @endauth
                 </div>
-
                 <div class="flex lg:hidden">
                     <button
                         @click="open = !open"
@@ -65,7 +63,7 @@
                     </button>
                 </div>
 
-                @if (count(config('shadow.locales', [])) > 1)
+                @if (count(config('app.locales')) > 1)
                     @include("layouts.partials.lang-switcher")
                 @endif
                 <button @click="toggleDarkMode()" class="btn btn-link">
@@ -75,8 +73,6 @@
             </div>
         </nav>
     </div>
-
-    <!-- Mobile menu -->
     <div class="lg:hidden" id="mobile-menu" x-show="open">
         <div class="space-y-1 px-2 pb-3 pt-2">
             @foreach($menu as $item)
@@ -95,11 +91,11 @@
                 <div class="links">
                     <a href="{{ route('login') }}"
                        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary">
-                        @lang("shadow.login")
+                        @lang("shadow::shadow.login")
                     </a>
                     <a href="{{ route('register') }}"
                        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary">
-                        @lang("shadow.register")
+                        @lang("shadow::shadow.register")
                     </a>
                 </div>
             @endguest

@@ -1,23 +1,23 @@
 @php
 $breadcrumbs = [
     [
-        'name' => __('shadow.home'),
+        'name' => __('shadow::shadow.home'),
         'url' => route('home')
    ],
    [
-       'name' => __('shadow.products'),
+       'name' => __('shadow::shadow.products'),
        'url' => route('products.index')
    ],
 ];
 @endphp
 @extends("layouts.app")
-@section("title", __("shadow.products"))
+@section("title", __("shadow::shadow.products"))
 
 
 @section("content")
     @component('components.title', ["breadcrumbs"=>$breadcrumbs])
         @slot('title')
-            {{ __("shadow.products") }}
+            {{ __("shadow::shadow.products") }}
         @endslot
     @endcomponent
 

@@ -1,24 +1,24 @@
 @php
 $breadcrumbs = [
     [
-        'name' => __('shadow.home'),
+        'name' => __('shadow::shadow.home'),
         'url' => route('home')
     ],
     [
-        'name' => __('shadow.register'),
+        'name' => __('shadow::shadow.register'),
         'url' => route('register')
     ],
 ];
 @endphp
 @extends("layouts.app")
 
-@section("title", __("shadow.register"))
+@section("title", __("shadow::shadow.register"))
 
 @section("content")
 
     @component('components.title', ["breadcrumbs"=>$breadcrumbs])
         @slot('title')
-            {{ __("shadow.register") }}
+            {{ __("shadow::shadow.register") }}
         @endslot
     @endcomponent
 
@@ -31,7 +31,7 @@ $breadcrumbs = [
                     <a
                         class="text-sm text-gray-600 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition duration-300"
                         href="{{ route("login") }}">
-                        @lang("shadow.already_have_account")
+                        @lang("shadow::shadow.already_have_account")
                     </a>
                 </div>
             </div>

@@ -5,20 +5,20 @@
 @section("content")
     @component('components.title', ["breadcrumbs"=>[
         [
-            'name' => __('shadow.home'),
+            'name' => __('shadow::shadow.home'),
             'url' => route('home')
         ],
         [
-            'name' => __('shadow.apps'),
+            'name' => __('shadow::shadow.apps'),
             'url' => route('apps.index')
         ],
         [
-            'name' => __('shadow.new_app'),
+            'name' => __('shadow::shadow.new_app'),
             'url' => route('apps.create')
         ],
     ]])
         @slot('title')
-            @lang("shadow.new_app")
+            @lang("shadow::shadow.new_app")
         @endslot
     @endcomponent
 

@@ -6,11 +6,11 @@
 @section("content")
     @component('components.title', ["breadcrumbs"=>[
         [
-            'name' => __('shadow.home'),
+            'name' => __('shadow::shadow.home'),
             'url' => route('home')
         ],
         [
-            'name' => __('shadow.products'),
+            'name' => __('shadow::shadow.products'),
             'url' => route('products.index')
         ],
         [

@@ -5,20 +5,20 @@
 @section("content")
     @component('components.title', ["breadcrumbs"=>[
         [
-            'name' => __('shadow.home'),
+            'name' => __('shadow::shadow.home'),
             'url' => route('home')
         ],
         [
-            'name' => __('shadow.apps'),
+            'name' => __('shadow::shadow.apps'),
             'url' => route('apps.index')
         ],
     ]])
         @slot('title')
-            {{ __("shadow.apps") }}
+            {{ __("shadow::shadow.apps") }}
         @endslot
         <div class="mt-6 lg:mt-0 lg:flex lg:space-x-6">
             <a href="{{ route("apps.create") }}" class="btn btn-primary text-white">
-                @lang("shadow.new_app")
+                @lang("shadow::shadow.new_app")
             </a>
         </div>
     @endcomponent

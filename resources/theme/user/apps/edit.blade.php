@@ -8,11 +8,11 @@
 @section("content")
     @component('components.title', ["breadcrumbs"=>[
         [
-            'name' => __('shadow.home'),
+            'name' => __('shadow::shadow.home'),
             'url' => route('home')
         ],
         [
-            'name' => __('shadow.apps'),
+            'name' => __('shadow::shadow.apps'),
             'url' => route('apps.index')
         ],
         [
@@ -20,12 +20,12 @@
             'url' => route('apps.show', $app->getName())
         ],
         [
-            'name' => __('shadow.edit_app'),
+            'name' => __('shadow::shadow.edit_app'),
             'url' => route('apps.edit', $app->getName())
         ],
     ]])
         @slot('title')
-            @lang("shadow.edit_app") - {{ $name }}
+            @lang("shadow::shadow.edit_app") - {{ $name }}
         @endslot
     @endcomponent
 
