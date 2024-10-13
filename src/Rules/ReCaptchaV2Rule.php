@@ -11,7 +11,7 @@ class ReCaptchaV2Rule implements Rule
     public function passes($attribute, $value)
     {
         $is_enabled = config('shadow.recaptcha.enabled');
-        dd($is_enabled);
+
         if (!$is_enabled) {
             return true;
         }
