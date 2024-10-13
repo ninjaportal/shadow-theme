@@ -24,7 +24,7 @@
         role="menu"
         id="user-dropdown"
         tabindex="-1">
-        @foreach(config("app.locales",[]) as $key => $locale)
+        @foreach(config("shadow.locales",[]) as $key => $locale)
             <a href="{{ route("lang.change", $key) }}" class="user-dropdown-item">
                 {{ $locale }}
             </a>
