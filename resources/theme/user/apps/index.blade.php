@@ -36,17 +36,17 @@
                         <div class="actions">
                             <a href="{{ route("apps.show", $app->getName()) }}"
                                class="px-2 text-gray-700 dark:text-gray-300 hover:text-primary/90 dark:hover:text-primary/70 duration-300">
-                                @lang("shadow.view")
+                                @lang("shadow::shadow.view")
                             </a>
                             <a href="{{ route("apps.edit", $app->getName()) }}"
                                class="px-2 text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-400 duration-300">
-                                @lang("shadow.edit")
+                                @lang("shadow::shadow.edit")
                             </a>
                             <x-shadow::action-confirm-modal
                                 :method="'DELETE'"
                                 trigger-class="px-2 text-red-700 dark:text-red-300 hover:text-red-800 dark:hover:text-red-400 duration-300"
                                 :action="route('apps.destroy', $app->getName())"
-                                :trigger="__('shadow.delete')"  />
+                                :trigger="__('shadow::shadow.delete')"  />
                         </div>
                     </dt>
                 </div>
