@@ -31,7 +31,7 @@ class ProductsController extends Controller
         }
 
         if (auth()->check()) {
-            $user_audiences = auth()->user()->audiences->pluck('id');
+            $user_audiences = auth()->user()->audiences?->pluck('id');
             if ($product->audiences->isNotEmpty() && $product->audiences->pluck('id')->diff($user_audiences)->isNotEmpty()) {
                 abort(404);
             }
