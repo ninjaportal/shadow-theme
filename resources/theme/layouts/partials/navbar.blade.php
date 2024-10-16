@@ -60,10 +60,12 @@
                 @if (count(config('shadow.locales',[])) > 1)
                     @include("layouts.partials.lang-switcher")
                 @endif
-                <button @click="toggleDarkMode()" class="btn btn-link">
-                    <x-heroicon-o-moon x-show="!dark" class="h-6 w-6"/>
-                    <x-heroicon-o-sun class="h-6 w-6" x-show="dark"/>
-                </button>
+                @if(config('shadow.darkmode_enabled'))
+                    <button @click="toggleDarkMode()" class="btn btn-link">
+                        <x-heroicon-o-moon x-show="!dark" class="h-6 w-6"/>
+                        <x-heroicon-o-sun class="h-6 w-6" x-show="dark"/>
+                    </button>
+                @endif
             </div>
         </nav>
     </div>
