@@ -60,7 +60,7 @@ class ShadowInstallCommand extends Command
     }
 
 
-    public function mergeAndPublishTranslations()
+    public function mergeAndPublishTranslations(): void
     {
         $ar_json_path = resource_path('lang/ar.json');
         $en_json_path = resource_path('lang/en.json');
@@ -68,8 +68,8 @@ class ShadowInstallCommand extends Command
         if (!File::exists($ar_json_path)) $ar_json = []; else $ar_json = json_decode(file_get_contents($ar_json_path), true);
         if (!File::exists($en_json_path)) $en_json = []; else $en_json = json_decode(file_get_contents($en_json_path), true);
 
-        $ar_shadow_translations = require __DIR__ . "/../../resources/lang/ar.json";
-        $en_shadow_translations = require __DIR__ . "/../../resources/lang/en.json";
+        $ar_shadow_translations = file_get_contents(__DIR__ . "/../../resources/lang/ar.json");
+        $en_shadow_translations = file_get_contents(__DIR__ . "/../../resources/lang/en.json");
 
         $ar_translations = array_merge($ar_json, $ar_shadow_translations);
         $en_translations = array_merge($en_json, $en_shadow_translations);
