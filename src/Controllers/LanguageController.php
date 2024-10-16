@@ -8,7 +8,7 @@ class LanguageController extends Controller
 {
     public function change($lang)
     {
-        if (in_array($lang, array_keys(config("app.locales")))) {
+        if (in_array($lang, array_keys(config("shadow.locales")))) {
             cookie()->queue(cookie()->forever("lang", $lang));
         }
 

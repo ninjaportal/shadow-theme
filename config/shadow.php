@@ -31,7 +31,7 @@ return [
 
 
     /**
-     * Locales ex: ['en', 'ar']
+     * Locales ex: ['en' => 'English', 'ar' => 'العربية']
      */
     "locales" => []
 ];
