@@ -26,7 +26,7 @@
 
     <div class="mx-auto max-w-7xl px-6 py-14">
         <div class="grid grid-cols-1 gap-6">
-            @foreach($apps as $app)
+            @forelse($apps as $app)
                 <div class="flex flex-col dark:bg-gray-700 p-6 shadow-lg">
                     <dt class="flex items-center justify-between text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
                         <div class="flex items-center">
@@ -50,7 +50,9 @@
                         </div>
                     </dt>
                 </div>
-            @endforeach
+            @empty
+                @include('components.noitems')
+            @endforelse
         </div>
     </div>
 

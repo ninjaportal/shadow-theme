@@ -16,27 +16,37 @@ class UserAppCredentialsController extends Controller implements HasMiddleware
     protected readonly ApiProductService $apiProductService;
     protected readonly UserAppCredentialService $userAppCredentialService;
     protected readonly UserAppService $userAppService;
+    protected string $email;
 
-    public function __construct()
-    {
-        $this->userAppCredentialService = new UserAppCredentialService(
-            auth()->user()->email,
-            request()->route('id')
-        );
-        $this->userAppService = new UserAppService(auth()->user()->email);
+    /**
+     * Inject services via the constructor.
+     *
+     * @param UserAppCredentialService $userAppCredentialService
+     * @param UserAppService $userAppService
+     * @param ApiProductService $apiProductService
+     */
+    public function __construct(
+        UserAppCredentialService $userAppCredentialService,
+        UserAppService $userAppService,
+        ApiProductService $apiProductService
+    ) {
+        $this->userAppCredentialService = $userAppCredentialService;
+        $this->userAppService = $userAppService;
+        $this->apiProductService = $apiProductService;
+        $this->email = auth()->user()->email;
     }
 
     public function store($id, NewAppKeyRequest $request)
     {
         $keys_per_app = config('shadow.keys_per_app');
 
-        if (count($this->userAppService->find($id)->getCredentials()) >= $keys_per_app) {
+        if (count($this->userAppService->find($this->email,$id)->getCredentials()) >= $keys_per_app) {
             return redirect()->route('apps.show', ['id' => $id])
                 ->with("error", "You have reached the maximum number of keys for this app");
         }
 
         $data = $request->validated();
-        $this->userAppCredentialService->create($data['api_products']);
+        $this->userAppCredentialService->create($this->email, $id, $data['api_products']);
         return redirect()->route('apps.show', ['id' => $id])
             ->with("success", __("shadow.created_successfully", ["name" => __("shadow.key")]));
     }
@@ -44,7 +54,7 @@ class UserAppCredentialsController extends Controller implements HasMiddleware
     public function addProducts(NewAppKeyRequest $request, $id, $key)
     {
         $data = $request->validated();
-        $this->userAppCredentialService->addProducts($key, $data['api_products']);
+        $this->userAppCredentialService->addProducts($this->email,$id,$key, $data['api_products']);
         return redirect()->route('apps.show', ['id' => $id])->with("success", __("shadow.updated_successfully", ["name" => __("shadow.key")]));
     }
 
@@ -54,7 +64,7 @@ class UserAppCredentialsController extends Controller implements HasMiddleware
             'api_product' => 'required|string',
         ]);
         try {
-            $this->userAppCredentialService->removeProducts($key, $data['api_product']);
+            $this->userAppCredentialService->removeProducts($this->email,$id,$key, $data['api_product']);
         } catch (\Exception $e) {
             return redirect()->route('apps.show', ['id' => $id])->with("error", $e->getMessage());
         }
@@ -64,7 +74,7 @@ class UserAppCredentialsController extends Controller implements HasMiddleware
     public function delete($id, $key)
     {
         try {
-            $this->userAppCredentialService->delete($key);
+            $this->userAppCredentialService->delete($this->email,$id,$key);
             return redirect()->route('apps.show', ['id' => $id])
                 ->with("success", __("shadow.deleted_successfully", ["name" => __("shadow.key")]));
         } catch (\Exception $e) {
