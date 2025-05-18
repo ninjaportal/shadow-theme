@@ -1,7 +1,19 @@
 <?php
 
 return [
-    "default_theme" => "dark",
+
+
+    /**
+     * Default theme : default, dark
+     */
+    "default_theme" => "default",
+
+
+    /**
+     * enable dark mode amd dark mode switcher
+     *
+     */
+    "darkmode_enabled" => false,
 
     /**
      * ReCaptcha settings, will be used in sign up and login forms
@@ -19,7 +31,7 @@ return [
 
 
     /**
-     * Locales ex: ['en', 'ar']
+     * Locales ex: ['en' => 'English', 'ar' => 'العربية']
      */
     "locales" => []
 ];

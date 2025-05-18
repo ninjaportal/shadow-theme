@@ -26,7 +26,7 @@
 
     <div class="mx-auto max-w-7xl px-6 py-14">
         <div class="grid grid-cols-1 gap-6">
-            @foreach($apps as $app)
+            @forelse($apps as $app)
                 <div class="flex flex-col dark:bg-gray-700 p-6 shadow-lg">
                     <dt class="flex items-center justify-between text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
                         <div class="flex items-center">
@@ -36,21 +36,23 @@
                         <div class="actions">
                             <a href="{{ route("apps.show", $app->getName()) }}"
                                class="px-2 text-gray-700 dark:text-gray-300 hover:text-primary/90 dark:hover:text-primary/70 duration-300">
-                                @lang("shadow.view")
+                                @lang("shadow::shadow.view")
                             </a>
                             <a href="{{ route("apps.edit", $app->getName()) }}"
                                class="px-2 text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-400 duration-300">
-                                @lang("shadow.edit")
+                                @lang("shadow::shadow.edit")
                             </a>
                             <x-shadow::action-confirm-modal
                                 :method="'DELETE'"
                                 trigger-class="px-2 text-red-700 dark:text-red-300 hover:text-red-800 dark:hover:text-red-400 duration-300"
                                 :action="route('apps.destroy', $app->getName())"
-                                :trigger="__('shadow.delete')"  />
+                                :trigger="__('shadow::shadow.delete')"  />
                         </div>
                     </dt>
                 </div>
-            @endforeach
+            @empty
+                @include('components.noitems')
+            @endforelse
         </div>
     </div>
 

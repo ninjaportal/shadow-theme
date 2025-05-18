@@ -16,6 +16,14 @@
     <meta property="og:image" content="{{ asset("theme/img/cover.jpg") }}">
     @vite("resources/css/app.scss", "vendor/shadow/build")
     @vite("resources/js/app.js", "vendor/shadow/build")
+    @if (app()->isLocale('ar'))
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" />
+        <style>
+            body {
+                font-family: 'Tajawal', sans-serif;
+            }
+        </style>
+    @endif
     @stack('styles')
 
 </head>

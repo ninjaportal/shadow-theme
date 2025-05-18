@@ -51,5 +51,10 @@ return [
     'view' => 'View',
     'warning' => 'Warning',
     'welcome_back' => 'Welcome Back',
-    'home' => 'Home'
+    'home' => 'Home',
+    'no_items' => 'No Items',
+    'profile' => 'Profile',
+    'logout' => 'Logout',
+    'update_profile' => 'Update Profile',
+    'update_password' => 'Update Password',
 ];

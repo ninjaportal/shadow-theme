@@ -28,15 +28,9 @@
             <div class="wrapper flex items-center space-x-2">
                 <div class="nav-items">
                     @foreach($menu as $item)
-                        @if(!isset($item['route']) && !isset($item['url']))
-                            @continue
-                        @endif
-                        @if(!isset($item['name']))
-                            @continue
-                        @endif
-                        <a href="{{ isset($item['route']) ? route($item['route']) :  $item['url'] }}"
+                        <a href="{{ $item->route ? route($item->route) :  $item->url }}"
                            class="mx-1 hover:text-primary">
-                            {{ $item['name'] }}
+                            {{ $item->title }}
                         </a>
                     @endforeach
                     @guest()
@@ -66,25 +60,23 @@
                 @if (count(config('shadow.locales',[])) > 1)
                     @include("layouts.partials.lang-switcher")
                 @endif
-                <button @click="toggleDarkMode()" class="btn btn-link">
-                    <x-heroicon-o-moon x-show="!dark" class="h-6 w-6"/>
-                    <x-heroicon-o-sun class="h-6 w-6" x-show="dark"/>
-                </button>
+                @if(config('shadow.darkmode_enabled'))
+                    <button @click="toggleDarkMode()" class="btn btn-link">
+                        <x-heroicon-o-moon x-show="!dark" class="h-6 w-6"/>
+                        <x-heroicon-o-sun class="h-6 w-6" x-show="dark"/>
+                    </button>
+                @endif
             </div>
         </nav>
     </div>
+
+    <!-- Mobile Menu -->
     <div class="lg:hidden" id="mobile-menu" x-show="open">
         <div class="space-y-1 px-2 pb-3 pt-2">
             @foreach($menu as $item)
-                @if(!isset($item['route']) && !isset($item['url']))
-                    @continue
-                @endif
-                @if(!isset($item['label']))
-                    @continue
-                @endif
-                <a href="{{ isset($item['route']) ? route($item['route']) :  $item['url'] }}"
-                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary">
-                    {{ $item['label'] }}
+                <a href="{{ $item->route ? route($item->route) :  $item->url }}"
+                   class="mx-1 hover:text-primary">
+                    {{ $item->title }}
                 </a>
             @endforeach
             @guest()

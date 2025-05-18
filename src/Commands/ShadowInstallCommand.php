@@ -25,6 +25,7 @@ class ShadowInstallCommand extends Command
         $this->info('Publishing views ...');
         $this->call('vendor:publish', ['--tag' => 'shadow-theme-views', '--force' => true]);
         $this->info('Publishing js ...');
+        $this->mergeAndPublishTranslations();
     }
 
     /**
@@ -58,6 +59,28 @@ class ShadowInstallCommand extends Command
         }
     }
 
+
+    public function mergeAndPublishTranslations(): void
+    {
+        $ar_json_path = resource_path('lang/ar.json');
+        $en_json_path = resource_path('lang/en.json');
+
+        if (!File::exists($ar_json_path)) $ar_json = []; else $ar_json = json_decode(file_get_contents($ar_json_path), true);
+        if (!File::exists($en_json_path)) $en_json = []; else $en_json = json_decode(file_get_contents($en_json_path), true);
+
+        $ar_shadow_translations =
+            json_decode(file_get_contents(__DIR__ . "/../../resources/lang/ar.json"), true);
+        $en_shadow_translations =
+            json_decode(file_get_contents(__DIR__ . "/../../resources/lang/en.json"), true);
+
+        $ar_translations = array_merge($ar_json, $ar_shadow_translations);
+        $en_translations = array_merge($en_json, $en_shadow_translations);
+
+        file_put_contents($ar_json_path, json_encode($ar_translations, JSON_PRETTY_PRINT));
+        file_put_contents($en_json_path, json_encode($en_translations, JSON_PRETTY_PRINT));
+
+        $this->info('Translations merged and published successfully.');
+    }
 
     public function npmInstall(string $package): void
     {
