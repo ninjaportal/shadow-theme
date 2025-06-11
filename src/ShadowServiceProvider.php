@@ -2,6 +2,7 @@
 
 namespace NinjaPortal\Shadow;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use NinjaPortal\Shadow\Commands\ShadowInstallCommand;
 use NinjaPortal\Shadow\Rules\CanAddProductsRule;
@@ -31,6 +32,8 @@ class ShadowServiceProvider extends PackageServiceProvider
         Validator::extend('recaptcha_v2', Rules\ReCaptchaV2Rule::class);
         // register middleware
         $this->app['router']->aliasMiddleware('set-locale', Middlewares\SetLocaleMiddleware::class);
+
+        config("shadow.locales", config('ninjaportal.locales', ['en' => "English"]));
     }
 
     public function packageRegistered()

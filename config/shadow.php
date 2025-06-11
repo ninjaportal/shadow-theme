@@ -1,7 +1,16 @@
 <?php
 
 return [
-    "default_theme" => "dark",
+    /**
+     * Default theme mode.
+     * * Available options:
+     * * - default: Default theme mode, uses the default theme.
+     * * - dark: Dark theme mode, uses the dark theme.
+     * */
+    "default_theme" => "default",
+
+    // Dark mode functionality
+    "darkmode_enabled" => env("SHADOW_DARKMODE_ENABLED", true),
 
     /**
      * ReCaptcha settings, will be used in sign up and login forms
@@ -17,9 +26,4 @@ return [
      */
     "keys_per_app" => env("KEYS_PER_APP", 2),
 
-
-    /**
-     * Locales ex: ['en', 'ar']
-     */
-    "locales" => []
 ];
