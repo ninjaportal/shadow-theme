@@ -20,7 +20,7 @@ Route::middleware(['web',"set-locale"])->group(function () {
         Route::post('/login', [Controllers\Auth\LoginController::class, 'login']);
         Route::post('/register', [Controllers\Auth\RegisterController::class, 'register']);
 
-        Route::post('/logout', [Controllers\UserController::class, 'logout'])->name('logout');
+        Route::post('/logout', [Controllers\UserController::class, 'logout'])->name('public.logout');
 
         Route::get('/forgot-password', [Controllers\Auth\ForgotPasswordController::class, 'view'])->name('password.request');
         Route::post('/forgot-password', [Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail']);
