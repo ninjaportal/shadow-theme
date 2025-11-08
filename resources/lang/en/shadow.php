@@ -57,4 +57,17 @@ return [
     'logout' => 'Logout',
     'update_profile' => 'Update Profile',
     'update_password' => 'Update Password',
+    
+    // Welcome page translations
+    'lorem_ipsum' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    'digital_integration' => 'Digital Integration is now easier with our new API.',
+    'explore_products' => 'Explore Products',
+    'ready_to_dive_in' => 'Ready to dive in?',
+    'start_exploring' => 'Start exploring our API products today.',
+    'explore_recent_products' => 'Explore our recent API Products',
+    'get_started_text' => 'Get started with our API products and start integrating your applications with ease.',
+    'faq_title' => 'Frequently Asked Questions',
+    'faq_subtitle' => 'Have a different question and can\'t find the answer you\'re looking for? Reach out to our support team by',
+    'sending_email' => 'sending us an email',
+    'faq_contact_end' => 'and we\'ll get back to you as soon as we can.',
 ];

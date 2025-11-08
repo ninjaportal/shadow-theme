@@ -15,7 +15,7 @@ class PagesController extends Controller
     public function welcome()
     {
         $products = $this->apiProductService->public();
-        return view('welcome',compact('products'));
+        return view('welcome', compact('products'));
     }
 
 }

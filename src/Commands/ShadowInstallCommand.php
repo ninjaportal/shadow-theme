@@ -4,91 +4,161 @@ namespace NinjaPortal\Shadow\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Process;
-use Illuminate\Support\Facades\Vite;
-use Illuminate\Support\ServiceProvider;
 
 class ShadowInstallCommand extends Command
 {
-    protected $signature = 'ninja-shadow:install';
+    protected $signature = 'shadow:install 
+                            {--views : Publish views for customization}
+                            {--config : Publish configuration file}
+                            {--frontend : Publish frontend resources (JS/CSS)}
+                            {--lang : Publish language files}
+                            {--tailwind : Publish Tailwind configuration}
+                            {--all : Publish all resources}
+                            {--force : Overwrite existing files}';
 
-    protected $description = 'Install the Ninja Shadow package';
+    protected $aliases = ['ninja-shadow:install'];
+
+    protected $description = 'Install the Shadow theme package';
 
     public function handle(): void
     {
-        $this->info('Checking and removing the default route from web.php...');
-        $this->removeDefaultRoute();
+        $this->info('🎨 Installing Shadow Theme...');
+        $this->newLine();
 
-        // copying assets and views
-        $this->info('Publishing assets ...');
-        $this->call('vendor:publish', ['--tag' => 'shadow-assets', '--force' => true]);
-        $this->info('Publishing views ...');
-        $this->call('vendor:publish', ['--tag' => 'shadow-theme-views', '--force' => true]);
-        $this->info('Publishing js ...');
-        $this->mergeAndPublishTranslations();
+        $options = $this->option('force') ? ['--force' => true] : [];
+
+        if ($this->option('all')) {
+            $this->publishEverything($options);
+            $this->completeInstallation();
+            return;
+        }
+
+        // Always publish required assets
+        $this->info('📦 Publishing required assets...');
+        $this->call('vendor:publish', array_merge(
+            ['--tag' => 'shadow-assets'],
+            $options
+        ));
+
+        // Optional publishes based on flags
+        if ($this->option('views')) {
+            $this->info('👁️  Publishing views...');
+            $this->call('vendor:publish', array_merge(
+                ['--tag' => 'shadow-views'],
+                $options
+            ));
+        }
+
+        if ($this->option('config')) {
+            $this->info('⚙️  Publishing configuration...');
+            $this->call('vendor:publish', array_merge(
+                ['--tag' => 'shadow-config'],
+                $options
+            ));
+        }
+
+        if ($this->option('frontend')) {
+            $this->info('🎨 Publishing frontend resources...');
+            $this->call('vendor:publish', array_merge(
+                ['--tag' => 'shadow-frontend'],
+                $options
+            ));
+        }
+
+        if ($this->option('lang')) {
+            $this->info('🌍 Publishing language files...');
+            $this->call('vendor:publish', array_merge(
+                ['--tag' => 'shadow-lang'],
+                $options
+            ));
+        }
+
+        if ($this->option('tailwind')) {
+            $this->info('🎨 Publishing Tailwind configuration...');
+            $this->call('vendor:publish', array_merge(
+                ['--tag' => 'shadow-tailwind'],
+                $options
+            ));
+        }
+
+        $this->completeInstallation();
     }
 
     /**
-     * Remove the default Laravel welcome route from web.php.
+     * Publish all resources
+     */
+    protected function publishEverything(array $options): void
+    {
+        $tags = [
+            'shadow-assets' => '📦 Publishing assets...',
+            'shadow-views' => '👁️  Publishing views...',
+            'shadow-config' => '⚙️  Publishing configuration...',
+            'shadow-frontend' => '🎨 Publishing frontend resources...',
+            'shadow-lang' => '🌍 Publishing language files...',
+            'shadow-tailwind' => '🎨 Publishing Tailwind configuration...',
+        ];
+
+        foreach ($tags as $tag => $message) {
+            $this->info($message);
+            $this->call('vendor:publish', array_merge(['--tag' => $tag], $options));
+        }
+    }
+
+    /**
+     * Complete installation tasks
+     */
+    protected function completeInstallation(): void
+    {
+        $this->newLine();
+        $this->removeDefaultRoute();
+        
+        $this->newLine();
+        $this->info('✅ Shadow theme installed successfully!');
+        $this->newLine();
+        
+        $this->comment('📚 Next steps:');
+        $this->line('  1. Run: npm install && npm run build');
+        $this->line('  2. Configure your .env file with Shadow settings');
+        $this->line('  3. Visit your application to see the theme in action');
+        $this->newLine();
+        
+        $this->comment('💡 Tip: Use --help to see all available options');
+    }
+
+    /**
+     * Remove the default Laravel welcome route from web.php
      */
     protected function removeDefaultRoute(): void
     {
         $webRoutePath = base_path('routes/web.php');
 
-        if (File::exists($webRoutePath)) {
-            // Load the contents of web.php
-            $content = File::get($webRoutePath);
-
-            // Define the default route content to search and remove
-            $defaultRoute = "Route::get('/', function () {\n    return view('welcome');\n});\n";
-
-            // Check if the default route exists in the file
-            if (str_contains($content, $defaultRoute)) {
-                // Remove the default route from the file content
-                $newContent = str_replace($defaultRoute, '', $content);
-
-                // Save the modified content back to web.php
-                File::put($webRoutePath, $newContent);
-
-                $this->info('Default route removed successfully.');
-            } else {
-                $this->info('No default route found.');
-            }
-        } else {
-            $this->error('routes/web.php not found.');
+        if (!File::exists($webRoutePath)) {
+            $this->warn('⚠️  routes/web.php not found.');
+            return;
         }
-    }
 
+        $content = File::get($webRoutePath);
 
-    public function mergeAndPublishTranslations(): void
-    {
-        $ar_json_path = resource_path('lang/ar.json');
-        $en_json_path = resource_path('lang/en.json');
+        // Define the default route patterns to search and remove
+        $patterns = [
+            "Route::get('/', function () {\n    return view('welcome');\n});\n",
+            "Route::get('/', function () {\n    return view('welcome');\n});",
+        ];
 
-        if (!File::exists($ar_json_path)) $ar_json = []; else $ar_json = json_decode(file_get_contents($ar_json_path), true);
-        if (!File::exists($en_json_path)) $en_json = []; else $en_json = json_decode(file_get_contents($en_json_path), true);
+        $found = false;
+        foreach ($patterns as $pattern) {
+            if (str_contains($content, $pattern)) {
+                $content = str_replace($pattern, '', $content);
+                $found = true;
+                break;
+            }
+        }
 
-        $ar_shadow_translations =
-            json_decode(file_get_contents(__DIR__ . "/../../resources/lang/ar.json"), true);
-        $en_shadow_translations =
-            json_decode(file_get_contents(__DIR__ . "/../../resources/lang/en.json"), true);
-
-        $ar_translations = array_merge($ar_json, $ar_shadow_translations);
-        $en_translations = array_merge($en_json, $en_shadow_translations);
-
-        file_put_contents($ar_json_path, json_encode($ar_translations, JSON_PRETTY_PRINT));
-        file_put_contents($en_json_path, json_encode($en_translations, JSON_PRETTY_PRINT));
-
-        $this->info('Translations merged and published successfully.');
-    }
-
-    public function npmInstall(string $package): void
-    {
-        Process::run("npm install $package", function ($type, $buffer) {
-            if ($type === "err")
-                $this->error($buffer);
-            else
-                $this->info($buffer);
-        });
+        if ($found) {
+            File::put($webRoutePath, $content);
+            $this->info('🗑️  Default route removed from web.php');
+        } else {
+            $this->info('ℹ️  No default route found in web.php');
+        }
     }
 }
