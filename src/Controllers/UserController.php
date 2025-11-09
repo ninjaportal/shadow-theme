@@ -35,7 +35,7 @@ class UserController extends Controller implements HasMiddleware
     {
         $data = $request->validated();
         $this->userService->update(auth()->user(), $data);
-        return redirect()->back()->with('success', __('shadow.profile_updated'));
+    return redirect()->back()->with('success', __('shadow::shadow.profile_updated'));
     }
 
     public function updatePassword(UserPasswordUpdateRequest $request)
@@ -44,43 +44,59 @@ class UserController extends Controller implements HasMiddleware
         if (Hash::check($data['current_password'], auth()->user()->password)) {
             $this->userService->update(auth()->user(), ['password' => $data['password']]);
         } else {
-            return redirect()->back()->with('error', __('shadow.password_incorrect'));
+            return redirect()->back()->with('error', __('shadow::shadow.password_incorrect'));
         }
-        return redirect()->back()->with('success', __('shadow.password_updated'));
+        return redirect()->back()->with('success', __('shadow::shadow.password_updated'));
     }
 
     protected function updateProfileForm()
     {
         $form = Former::make([
-            TextInput::make('first_name')->setLabel(__('First Name'))->required(),
-            TextInput::make('last_name')->setLabel(__('Last Name'))->required(),
-            TextInput::make('email')->setLabel(__('Email'))->required(),
-        ])->setColumns(1)
-            ->setSubmitText(__('Update'))
+            TextInput::make('first_name')
+                ->setLabel(__('shadow::shadow.first_name'))
+                ->setWrapperClass('lg:col-span-1')
+                ->required(),
+            TextInput::make('last_name')
+                ->setLabel(__('shadow::shadow.last_name'))
+                ->setWrapperClass('lg:col-span-1')
+                ->required(),
+            TextInput::make('email')
+                ->setLabel(__('shadow::shadow.email'))
+                ->setWrapperClass('lg:col-span-2')
+                ->required(),
+        ])->setColumns(2)
+            ->setSubmitText(__('shadow::shadow.update'))
             ->setAction(route('profile.update'));
+        $form->setClass('lg:gap-6');
         $form->fill(auth()->user()->toArray());
         return $form;
     }
 
     private function updatePasswordForm()
     {
-        return Former::make([
+        $form = Former::make([
             TextInput::make('current_password')
                 ->setType('password')
-                ->setLabel(__('Current Password'))
+                ->setLabel(__('shadow::shadow.current_password'))
+                ->setWrapperClass('lg:col-span-2')
                 ->required(),
             TextInput::make('password')
                 ->setType('password')
-                ->setLabel(__('New Password'))
+                ->setLabel(__('shadow::shadow.new_password'))
+                ->setWrapperClass('lg:col-span-1')
                 ->required(),
             TextInput::make('password_confirmation')
                 ->setType('password')
-                ->setLabel(__('Confirm Password'))
+                ->setLabel(__('shadow::shadow.confirm_password'))
+                ->setWrapperClass('lg:col-span-1')
                 ->required(),
         ])
-            ->setColumns(1)
-            ->setSubmitText(__('Update'))
+            ->setColumns(2)
+            ->setSubmitText(__('shadow::shadow.update'))
             ->setAction(route('profile.password'));
+        $form->setClass('lg:gap-6');
+
+        return $form;
     }
 
     public static function middleware()

@@ -5,6 +5,7 @@ namespace NinjaPortal\Shadow\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Lordjoo\LaraApigee\Exceptions\NotFoundException;
+use NinjaPortal\Portal\Contracts\Services\ApiProductServiceInterface;
 use NinjaPortal\Portal\Services\ApiProductService;
 use NinjaPortal\Portal\Services\UserAppService;
 use NinjaPortal\Shadow\Former\Fields\MultiSelect;
@@ -108,7 +109,9 @@ class UserAppsController extends Controller implements HasMiddleware
                 ->required(),
         ])->setColumns(1)->setAction(route('apps.keys.store', $id));
 
-        return view('user.apps.show', compact('app', 'newKeyForm'));
+        $products = app(ApiProductServiceInterface::class)->mine()->pluck('name','apigee_product_id')->toArray();
+
+        return view('user.apps.show', compact('app', 'newKeyForm','products'));
     }
 
     /**

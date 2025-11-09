@@ -11,30 +11,34 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('darkMode', () => ({
         dark: false,
         darkThemeName: 'dark',
+        lightThemeName: 'light',
         toggleDarkMode() {
             this.dark = !this.dark
-            document.body.setAttribute('data-theme', this.dark ? 'dark' : 'default');
-            localStorage.setItem('darkMode', this.dark ? this.darkThemeName : 'default');
         },
         init() {
             this.watchDarkMode()
 
-            this.dark = localStorage.getItem('darkMode') === 'dark';
-                document.body.setAttribute('data-theme', this.dark ? this.darkThemeName : 'default');
+            const storedTheme = localStorage.getItem('darkMode')
+            if (storedTheme === this.darkThemeName) {
+                this.dark = true
+            } else if (storedTheme === this.lightThemeName) {
+                this.dark = false
+            } else if (document.body.getAttribute('data-theme') === this.darkThemeName) {
+                this.dark = true
+            }
 
-            if (localStorage.getItem('darkMode') === 'dark') {
-                this.dark = true
-            }
-            if (document.body.getAttribute('data-theme') === 'dark') {
-                this.dark = true
-            }
+            const initialTheme = this.dark ? this.darkThemeName : this.lightThemeName
+            document.body.setAttribute('data-theme', initialTheme)
+            localStorage.setItem('darkMode', initialTheme)
         },
         watchDarkMode() {
             this.$watch('dark', value => {
+                const theme = value ? this.darkThemeName : this.lightThemeName
+                document.body.setAttribute('data-theme', theme)
+                localStorage.setItem('darkMode', theme)
+
                 if (value) {
-                    document.body.setAttribute('data-theme', this.darkThemeName);
-                    localStorage.setItem('darkMode', this.darkThemeName);
-                    import("@sweetalert2/theme-dark/dark.min.css");
+                    import("@sweetalert2/theme-dark/dark.min.css")
                 }
             })
         }

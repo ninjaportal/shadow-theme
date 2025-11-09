@@ -1,12 +1,7 @@
-<div class="no-items mx-auto">
-    <div class="px-6 py-14">
-        <div class="flex flex-col items-center justify-center">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-                <x-heroicon-o-arrows-pointing-out class="h-6 w-6 text-white" />
-            </div>
-            <h2 class="mt-2 text-xl font-bold leading-7 text-gray-900 dark:text-gray-100">
-                {{ __("shadow::shadow.no_items") }}
-            </h2>
-        </div>
+<div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center shadow-sm dark:border-border-dark dark:bg-surface-dark/90">
+    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/15 text-primary">
+        <span class="material-symbols-outlined text-2xl">hourglass_empty</span>
     </div>
+    <h2 class="text-lg font-semibold text-slate-700 dark:text-white/80">{{ __('shadow::shadow.no_items') }}</h2>
+    <p class="mt-2 text-sm text-slate-500 dark:text-white/60">{{ __('shadow::shadow.no_products_placeholder') }}</p>
 </div>

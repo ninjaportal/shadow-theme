@@ -19,7 +19,7 @@
     @endcomponent
 
     <div class="mx-auto max-w-7xl px-6 py-14">
-        <div class="grid grid-cols-1 md:grid-cols-1 gap-8 gap-y-12">
+        <div class="grid grid-cols-1 gap-8 gap-y-12 lg:grid-cols-2 lg:items-start">
             <div class="update-profile">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4 dark:text-gray-200">@lang("shadow::shadow.update_profile")</h2>
                 {{ $updateProfileForm->render() }}

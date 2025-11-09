@@ -39,8 +39,8 @@ class RegisterController extends Controller
             try {
                 $user = $this->userService->create($data);
             } catch (Exception $e) {
-                Log::error($e->getMessage());
-                return redirect()->back()->with(['status' => 'error', 'message'  => __("shadow.general_error")]);
+                Log::critical($e->getMessage());
+                return redirect()->back()->withErrors(['error' => 'Registration failed. Please try again later.']);
             }
 
             auth()->login($user, true);

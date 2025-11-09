@@ -4,6 +4,7 @@ namespace NinjaPortal\Shadow\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Validation\Validator;
+use NinjaPortal\Portal\Contracts\Services\ApiProductServiceInterface;
 use NinjaPortal\Portal\Services\ApiProductService;
 
 class CanAddProductsRule implements Rule
@@ -11,8 +12,8 @@ class CanAddProductsRule implements Rule
     public function passes($attribute, $value): bool
     {
         try {
-            $apiProductIds = (new ApiProductService())->mine()->pluck('apigee_product_id');
-            return $apiProductIds->diff($value)->isEmpty();
+            $apiProductIds = app(ApiProductServiceInterface::class)->mine()->pluck('apigee_product_id');
+            return $apiProductIds->intersect($value)->count() === count($value);
         } catch (\Exception $e) {
             return false;
         }
